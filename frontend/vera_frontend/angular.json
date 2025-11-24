@@ -2,11 +2,12 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": "278a9a0a-4d78-4393-8d96-6a415859063c"
   },
   "newProjectRoot": "projects",
   "projects": {
-    "vera_project": {
+    "test-projet2": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -61,10 +62,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "vera_project:build:production"
+              "buildTarget": "test-projet2:build:production"
             },
             "development": {
-              "buildTarget": "vera_project:build:development"
+              "buildTarget": "test-projet2:build:development"
             }
           },
           "defaultConfiguration": "development"
