@@ -8,6 +8,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "test-projet2": {
+    "test-projet2": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -63,8 +64,10 @@
           "configurations": {
             "production": {
               "buildTarget": "test-projet2:build:production"
+              "buildTarget": "test-projet2:build:production"
             },
             "development": {
+              "buildTarget": "test-projet2:build:development"
               "buildTarget": "test-projet2:build:development"
             }
           },
