@@ -1,5 +1,5 @@
 {
-  "name": "vera-project",
+  "name": "test-projet2",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:vera_project": "node dist/vera_project/server/server.mjs"
+    "serve:ssr:test-projet2": "node dist/test-projet2/server/server.mjs"
   },
   "prettier": {
     "printWidth": 100,
@@ -22,7 +22,7 @@
     ]
   },
   "private": true,
-  "packageManager": "npm@11.4.2",
+  "packageManager": "npm@11.6.2",
   "dependencies": {
     "@angular/common": "^21.0.0",
     "@angular/compiler": "^21.0.0",
@@ -40,12 +40,12 @@
     "@angular/build": "^21.0.0",
     "@angular/cli": "^21.0.0",
     "@angular/compiler-cli": "^21.0.0",
-    "@tailwindcss/postcss": "^4.1.12",
+    "@tailwindcss/postcss": "^4.1.17",
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
     "jsdom": "^27.1.0",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.12",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.17",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
   }
