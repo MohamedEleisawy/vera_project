@@ -1,1 +1,23 @@
-<p>home works!</p>
+<!-- src/app/features/landing/pages/home/home.html -->
+<div class="min-h-screen flex flex-col">
+  
+  <!-- Contenu principal centré -->
+  <div class="flex-1 flex items-center justify-center px-4">
+    <div class="w-full max-w-3xl">
+      
+      <!-- Texte de bienvenue (optionnel) -->
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-blue-600 mb-4">Vera à votre service.</h1>
+        <p class="text-gray-600">Posez votre question ci-dessous</p>
+      </div>
+
+      <!-- Votre input -->
+      <app-input 
+        (messageSent)="handleMessage($event)"
+        (fileAttached)="handleAttachment()">
+      </app-input>
+      
+    </div>
+  </div>
+
+</div>
