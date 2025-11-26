@@ -3,11 +3,10 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "analytics": false
+    "analytics": "278a9a0a-4d78-4393-8d96-6a415859063c"
   },
   "newProjectRoot": "projects",
   "projects": {
-    "test-projet2": {
     "test-projet2": {
       "projectType": "application",
       "schematics": {},
@@ -64,10 +63,8 @@
           "configurations": {
             "production": {
               "buildTarget": "test-projet2:build:production"
-              "buildTarget": "test-projet2:build:production"
             },
             "development": {
-              "buildTarget": "test-projet2:build:development"
               "buildTarget": "test-projet2:build:development"
             }
           },
