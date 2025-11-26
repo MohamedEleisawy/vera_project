@@ -1,12 +1,12 @@
 // src/app/features/landing/landing-routing-module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Home} from './pages/home/home';
+import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: Home
+    component: HomeComponent
   }
 ];
 

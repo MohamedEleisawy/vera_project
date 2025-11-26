@@ -1,6 +1,9 @@
 // src/app/features/landing/pages/home/home.ts
 import { Component } from '@angular/core';
-import { InputComponent } from '../../../../shared/components/input/input';  // ← Importez le composant ici
+import { InputComponent } from '../../../../shared/components/input/input';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +12,7 @@ import { InputComponent } from '../../../../shared/components/input/input';  // 
   styleUrls: ['./home.css']
 })
 
-export class Home {
+export class HomeComponent {
   handleMessage(message: string): void {
     console.log('Message reçu:', message);
     // Votre logique ici
@@ -19,4 +22,8 @@ export class Home {
     console.log('Fichier attaché');
     // Votre logique ici
   }
+
+  constructor(public authService: AuthService) {}
+  login() { this.authService.login(); }
+  logout() { this.authService.logout(); }
 }
