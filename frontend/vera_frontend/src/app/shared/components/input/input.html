@@ -1,53 +1,33 @@
-<div class="w-full max-w-4xl mx-auto px-4">
-  <div class="flex flex-col bg-neutral-beige-50 rounded-2xl px-5 py-4 shadow-md">
+<div class="w-full bg-neutral-beige-50">
+  <div class="flex flex-col rounded-2xl px-5 py-4 shadow-md">
+    
     <!-- Fichiers attachés -->
     @if (attachedFiles.length > 0) {
       <div class="flex flex-wrap gap-2 mb-3">
         @for (file of attachedFiles; track file.name; let i = $index) {
-          <div
-            class="flex items-center gap-2 bg-white rounded-lg px-3 py-2 border border-stone-200"
-          >
+          <div class="flex items-center gap-2 bg-white rounded-lg px-3 py-2 border border-stone-200">
+            
             <!-- Icône fichier -->
             <div class="w-8 h-8 flex items-center justify-center rounded bg-indigo-100">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-paperclip-icon lucide-paperclip"
-              >
-                <path
-                  d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"
-                />
+              <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-
+            
             <!-- Info fichier -->
             <div class="flex flex-col">
-              <span class="text-xs font-medium text-stone-700 truncate max-w-32">{{
-                file.name
-              }}</span>
+              <span class="text-xs font-medium text-stone-700 truncate max-w-32">{{ file.name }}</span>
               <span class="text-xs text-stone-400">{{ file.size }}</span>
             </div>
-
+            
             <!-- Bouton supprimer -->
-            <button
+            <button 
               type="button"
               (click)="removeFile(i)"
-              class="ml-1 text-stone-400 hover:text-stone-600 transition-colors cursor-pointer"
-            >
+              class="ml-1 text-stone-400 hover:text-stone-600 transition-colors cursor-pointer">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
@@ -70,49 +50,34 @@
 
       <!-- Barre du bas : icônes à gauche, bouton envoi à droite -->
       <div class="flex items-center justify-between">
+        
         <!-- Icône attachement -->
-        <button
+        <button 
           type="button"
           (click)="onAttach()"
-          class="text-stone-500 hover:text-stone-700 transition-colors cursor-pointer"
-        >
+          class="text-stone-500 hover:text-stone-700 transition-colors cursor-pointer">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-              d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
-            />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
+                  d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
           </svg>
         </button>
 
         <!-- Input file caché -->
-        <input #fileInput type="file" multiple (change)="onFileSelected($event)" class="hidden" />
+        <input 
+          #fileInput
+          type="file"
+          multiple
+          (change)="onFileSelected($event)"
+          class="hidden"
+        />
 
         <!-- Bouton d'envoi -->
-        <button
+        <button 
           type="button"
           (click)="onSend()"
           [disabled]="!message.trim() && attachedFiles.length === 0"
-          class="shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-stone-700 text-white hover:bg-stone-800 transition-colors disabled:bg-gray-400 disabled:opacity-100 enabled:cursor-pointer"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-send-icon lucide-send"
-          >
-            <path
-              d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"
-            />
-            <path d="m21.854 2.147-10.94 10.939" />
-          </svg>
+          class="shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-stone-700 text-white hover:bg-stone-800 transition-colors disabled:bg-gray-400 disabled:opacity-100 enabled:cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send-icon lucide-send"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
         </button>
       </div>
     </div>
@@ -120,7 +85,7 @@
 
   <!-- Suggestions (affichées uniquement si showSuggestions est true) -->
   @if (showSuggestions && suggestions.length > 0) {
-    <div class="mt-3 space-y-1">
+    <div class="mt-3 space-y-1 rounded-2xl">
       @for (suggestion of suggestions; track suggestion.text; let i = $index) {
         <button
           type="button"
@@ -129,39 +94,21 @@
           class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left transition-colors cursor-pointer"
           [class.bg-neutral-beige-200]="selectedSuggestionIndex === i"
           [class.bg-neutral-beige-50]="selectedSuggestionIndex !== i"
-          [class.hover:bg-neutral-beige-100]="selectedSuggestionIndex !== i"
-        >
+          [class.hover:bg-neutral-beige-100]="selectedSuggestionIndex !== i">
+          
           <!-- Icône avion -->
-          <svg
-            class="w-4 h-4 text-stone-500 shrink-0 -rotate-45"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6 12L3 21l18-9L3 3l3 9zm0 0h8"
-            />
-          </svg>
-
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send-icon lucide-send"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>          
           <span class="text-sm text-stone-700">{{ suggestion.text }}</span>
-
+          
           <!-- Icône crayon sur sélection -->
           @if (selectedSuggestionIndex === i) {
-            <svg
-              class="w-4 h-4 text-stone-400 ml-auto"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-              />
+            <svg 
+              class="w-4 h-4 text-stone-400 ml-auto" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
             </svg>
           }
         </button>

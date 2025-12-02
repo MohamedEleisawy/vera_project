@@ -8,13 +8,17 @@ import { CommonModule } from '@angular/common';
   templateUrl: './sidebar.html',
 })
 export class Sidebar {
-  isOpen = false;
+  isExpanded = false; // Démarre collapsed par défaut
 
   toggleSidebar(): void {
-    this.isOpen = !this.isOpen;
+    this.isExpanded = !this.isExpanded;
   }
 
-  closeSidebar(): void {
-    this.isOpen = false;
+  collapseSidebar(): void {
+    this.isExpanded = false;
+  }
+
+  expandSidebar(): void {
+    this.isExpanded = true;
   }
 }
