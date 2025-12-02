@@ -1,0 +1,15 @@
+<div
+  class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 hover:shadow-md transition-shadow"
+>
+  <div class="flex items-center justify-between mb-3">
+    <span class="text-2xl">{{ icon }}</span>
+    <span
+      class="text-xs font-medium px-2 py-1 rounded-full"
+      [ngClass]="isPositive ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-500'"
+    >
+      {{ change }}
+    </span>
+  </div>
+  <p class="text-2xl font-bold text-slate-800">{{ value }}</p>
+  <p class="text-sm text-slate-500 mt-1">{{ title }}</p>
+</div>

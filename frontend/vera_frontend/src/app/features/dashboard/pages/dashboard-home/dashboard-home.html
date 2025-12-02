@@ -1,0 +1,225 @@
+<div class="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+  <div class="w-full max-w-5xl">
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-semibold text-slate-800">Dashboard</h1>
+      <p class="text-slate-500 mt-1">Bienvenue ! Voici un aperçu de vos données.</p>
+    </div>
+
+    <div class="pb-8">
+      <p class="mb-4 text-green-700 font-semibold">Félicitations, vous êtes connecté !</p>
+      <p class="mb-8">Ici se trouveront les outils de gestion et d'analyse.</p>
+      <button
+        (click)="fetchData()"
+        class="px-4 py-2 bg-secondary-blue-400 text-white rounded-lg hover:bg-secondary-blue-600 cursor-pointer transition"
+      >
+        Tester Requête Sécurisée
+      </button>
+      <a routerLink="/" class="ml-4 text-blue-600 hover:text-blue-800 underline"
+        >Retourner à l'Accueil</a
+      >
+      <p *ngIf="apiMessage" class="mt-4 p-3 bg-yellow-100 text-yellow-800 rounded">
+        {{ apiMessage }}
+      </p>
+    </div>
+    <div class="w-full max-w-5xl">
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <app-stat-card
+          icon="💰"
+          title="Revenus"
+          value="€45,231"
+          change="+12.5%"
+          [isPositive]="true"
+        />
+        <app-stat-card
+          icon="👥"
+          title="Utilisateurs"
+          value="2,345"
+          change="+8.2%"
+          [isPositive]="true"
+        />
+        <app-stat-card
+          icon="📦"
+          title="Commandes"
+          value="1,247"
+          change="-2.4%"
+          [isPositive]="false"
+        />
+        <app-stat-card
+          icon="📈"
+          title="Taux conversion"
+          value="3.2%"
+          change="+0.8%"
+          [isPositive]="true"
+        />
+      </div>
+
+      <!-- Main Content Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Chart Section -->
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-lg font-semibold text-slate-800">Activité hebdomadaire</h2>
+            <select
+              class="text-sm text-slate-500 bg-slate-50 border-0 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-indigo-500"
+            >
+              <option>Cette semaine</option>
+              <option>Semaine dernière</option>
+              <option>Ce mois</option>
+            </select>
+          </div>
+
+          <!-- Simple Bar Chart -->
+          <div class="flex items-end justify-between h-48 gap-3">
+            <div class="flex-1 flex flex-col items-center gap-2">
+              <div
+                class="w-full bg-linear-to-t from-secondary-blue-500 to-primary-green-600 rounded-lg hover:from-secondary-blue-600 hover:to-primary-green-700 transition-all"
+                style="height: 35%"
+              ></div>
+              <span class="text-xs text-slate-500">Lun</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-2">
+              <div
+                class="w-full bg-linear-to-t from-secondary-blue-500 to-primary-green-600 rounded-lg hover:from-secondary-blue-600 hover:to-primary-green-700 transition-all"
+                style="height: 60%"
+              ></div>
+              <span class="text-xs text-slate-500">Mar</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-2">
+              <div
+                class="w-full bg-linear-to-t from-secondary-blue-500 to-primary-green-600 rounded-lg hover:from-secondary-blue-600 hover:to-primary-green-700 transition-all"
+                style="height: 45%"
+              ></div>
+              <span class="text-xs text-slate-500">Mer</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-2">
+              <div
+                class="w-full bg-linear-to-t from-secondary-blue-500 to-primary-green-600 rounded-lg hover:from-secondary-blue-600 hover:to-primary-green-700 transition-all"
+                style="height: 80%"
+              ></div>
+              <span class="text-xs text-slate-500">Jeu</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-2">
+              <div
+                class="w-full bg-linear-to-t from-secondary-blue-500 to-primary-green-600 rounded-lg hover:from-secondary-blue-600 hover:to-primary-green-700 transition-all"
+                style="height: 55%"
+              ></div>
+              <span class="text-xs text-slate-500">Ven</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-2">
+              <div
+                class="w-full bg-linear-to-t from-secondary-blue-500 to-primary-green-600 rounded-lg hover:from-secondary-blue-600 hover:to-primary-green-700 transition-all"
+                style="height: 90%"
+              ></div>
+              <span class="text-xs text-slate-500">Sam</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-2">
+              <div
+                class="w-full bg-linear-to-t from-secondary-blue-500 to-primary-green-600 rounded-lg hover:from-secondary-blue-600 hover:to-primary-green-700 transition-all"
+                style="height: 70%"
+              ></div>
+              <span class="text-xs text-slate-500">Dim</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+          <h2 class="text-lg font-semibold text-slate-800 mb-4">Activité récente</h2>
+
+          <div class="space-y-4">
+            <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 transition-colors">
+              <div
+                class="w-10 h-10 rounded-full bg-linear-to-br from-secondary-blue-500 to-primary-green-600 flex items-center justify-center text-white text-sm font-medium"
+              >
+                MD
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm text-slate-800 truncate">
+                  <span class="font-medium">Marie Dupont</span> a passé une commande
+                </p>
+                <p class="text-xs text-slate-400">Il y a 2 min</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 transition-colors">
+              <div
+                class="w-10 h-10 rounded-full bg-linear-to-br from-secondary-blue-500 to-primary-green-600 flex items-center justify-center text-white text-sm font-medium"
+              >
+                JM
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm text-slate-800 truncate">
+                  <span class="font-medium">Jean Martin</span> s'est inscrit
+                </p>
+                <p class="text-xs text-slate-400">Il y a 15 min</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 transition-colors">
+              <div
+                class="w-10 h-10 rounded-full bg-linear-to-br from-secondary-blue-500 to-primary-green-600 flex items-center justify-center text-white text-sm font-medium"
+              >
+                SB
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm text-slate-800 truncate">
+                  <span class="font-medium">Sophie Bernard</span> a laissé un avis
+                </p>
+                <p class="text-xs text-slate-400">Il y a 1 heure</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 transition-colors">
+              <div
+                class="w-10 h-10 rounded-full bg-linear-to-br from-secondary-blue-500 to-primary-green-600 flex items-center justify-center text-white text-sm font-medium"
+              >
+                PL
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm text-slate-800 truncate">
+                  <span class="font-medium">Pierre Leroy</span> a mis à jour son profil
+                </p>
+                <p class="text-xs text-slate-400">Il y a 2 heures</p>
+              </div>
+            </div>
+          </div>
+
+          <button
+            class="w-full mt-4 py-2.5 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-xl hover:bg-indigo-100 transition-colors"
+          >
+            Voir tout
+          </button>
+        </div>
+      </div>
+
+      <!-- Footer Stats -->
+      <div
+        class="mt-6 bg-linear-to-r from-secondary-blue-500 to-primary-green-600 rounded-2xl p-6 text-white"
+      >
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h3 class="text-lg font-semibold">Objectif mensuel</h3>
+            <p class="text-indigo-100 text-sm">Vous avez atteint 78% de votre objectif</p>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="text-center">
+              <p class="text-2xl font-bold">€35,200</p>
+              <p class="text-xs text-indigo-200">Actuel</p>
+            </div>
+            <div class="w-px h-10 bg-indigo-400"></div>
+            <div class="text-center">
+              <p class="text-2xl font-bold">€45,000</p>
+              <p class="text-xs text-indigo-200">Objectif</p>
+            </div>
+          </div>
+        </div>
+        <!-- Progress Bar -->
+        <div class="mt-4 h-2 bg-indigo-400/30 rounded-full overflow-hidden">
+          <div class="h-full w-[78%] bg-white rounded-full"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

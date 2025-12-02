@@ -1,0 +1,67 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'tailwindcss';
+
+@theme {
+  /* Primary Green */
+  --color-primary-green-50: #f0ffe4;
+  --color-primary-green-100: #d8f9be;
+  --color-primary-green-200: #c7ebab;
+  --color-primary-green-300: #b1db95;
+  --color-primary-green-400: #9ac983;
+  --color-primary-green-500: #82b671;
+  --color-primary-green-600: #67985b;
+  --color-primary-green-700: #4b7243;
+  --color-primary-green-800: #2f4a2a;
+  --color-primary-green-900: #151713;
+
+  /* Secondary Blue */
+  --color-secondary-blue-50: #e7f1ff;
+  --color-secondary-blue-100: #b4d2ff;
+  --color-secondary-blue-200: #a2c4f5;
+  --color-secondary-blue-300: #8eb3e8;
+  --color-secondary-blue-400: #78a1d9;
+  --color-secondary-blue-500: #628ec9;
+  --color-secondary-blue-600: #4b75ae;
+  --color-secondary-blue-700: #355887;
+  --color-secondary-blue-800: #233a58;
+  --color-secondary-blue-900: #121822;
+
+  /* Danger Red */
+  --color-danger-red-50: #ffecee;
+  --color-danger-red-100: #ffd5d8;
+  --color-danger-red-200: #f8c2c7;
+  --color-danger-red-300: #efadb5;
+  --color-danger-red-400: #e598a2;
+  --color-danger-red-500: #d9828e;
+  --color-danger-red-600: #be686f;
+  --color-danger-red-700: #944a54;
+  --color-danger-red-800: #5f2f36;
+  --color-danger-red-900: #1f0c11;
+
+  /* Neutral Beige */
+  --color-neutral-beige-50: #fff8f0;
+  --color-neutral-beige-100: #fef2e4;
+  --color-neutral-beige-200: #f2e3cf;
+  --color-neutral-beige-300: #e5d3b9;
+  --color-neutral-beige-400: #d6c1a2;
+  --color-neutral-beige-500: #c4ad8b;
+  --color-neutral-beige-600: #a48f71;
+  --color-neutral-beige-700: #7c6c54;
+  --color-neutral-beige-800: #524837;
+  --color-neutral-beige-900: #111110;
+
+  /* Success */
+  --color-success-50: #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+
+  /* Warning */
+  --color-warning-50: #fffbeb;
+  --color-warning-100: #fef3c7;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+  --color-warning-700: #b45309;
+}

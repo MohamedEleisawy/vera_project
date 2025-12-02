@@ -1,6 +1,7 @@
 // src/auth/auth.controller.ts
 import { Controller, Post, Body, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { RegisterDto } from './dto/register.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -8,7 +9,7 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() body: any) {
-    const user = await this.authService.validateUser(body.email, body.motDePasse);
+    const user= await this.authService.validateUser(body.email, body.motDePasse);
     if (!user) {
       throw new UnauthorizedException('Identifiants incorrects');
     }
@@ -16,7 +17,9 @@ export class AuthController {
   }
 
   @Post('register')
-  async register(@Body() body: any) {
-    return this.authService.register(body);
+  async register(@Body() body: RegisterDto) {
+    const user = await this.authService.register(body);
+    // Au lieu de renvoyer tout le user, on renvoie un message propre
+    return { message: 'Inscription réussie', userId: user.id };
   }
 }
