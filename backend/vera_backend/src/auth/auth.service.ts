@@ -42,7 +42,6 @@ export class AuthService {
   // 2. VALIDATION (LOGIN)
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.usersRepository.findOneBy({ email });
-    
     // Si user existe et mot de passe correspond
     if (user && (await bcrypt.compare(pass, user.motDePasse))) {
       const { motDePasse, ...result } = user; // On retire le mot de passe du résultat

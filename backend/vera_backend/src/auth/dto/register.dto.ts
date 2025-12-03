@@ -12,13 +12,13 @@ export class RegisterDto {
   @IsNotEmpty({ message: 'Le nom est obligatoire' })
   nom: string;
 
-  @IsEmail({}, { message: 'L\'email est invalide' })
+  @IsEmail({}, { message: 'Le mail est invalide' })
   email: string;
 
   @IsString()
   @MinLength(8, { message: 'Le mot de passe doit faire au moins 8 caractères' })
-  // Optionnel : Force une Majuscule, un chiffre et un caractère spécial
-  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, { 
+  //  Force une Majuscule, un chiffre et un caractère spécial
+  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'Le mot de passe est trop faible (ajoutez majuscule/chiffre)',
   })
   motDePasse: string;

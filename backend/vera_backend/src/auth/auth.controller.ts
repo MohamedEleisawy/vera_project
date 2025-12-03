@@ -19,7 +19,6 @@ export class AuthController {
   @Post('register')
   async register(@Body() body: RegisterDto) {
     const user = await this.authService.register(body);
-    // Au lieu de renvoyer tout le user, on renvoie un message propre
     return { message: 'Inscription réussie', userId: user.id };
   }
 }
