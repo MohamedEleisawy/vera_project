@@ -4,7 +4,7 @@ import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 // 👇 IMPORT IMPORTANT : On récupère la config (Local ou Prod)
-import { environment } from '../../../environnements/environnement';
+import { environment } from '../../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
