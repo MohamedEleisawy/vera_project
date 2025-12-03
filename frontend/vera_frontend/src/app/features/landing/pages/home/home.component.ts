@@ -2,7 +2,6 @@
 import { Component, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { RouterModule, Router } from '@angular/router'; // 👈 1. Ajout de Router
 import { AuthService } from '../../../../core/services/auth.service';
-import { Sidebar } from '../../components/sidebar/sidebar';
 import {
   InputComponent,
   AttachedFile,
@@ -13,7 +12,7 @@ import { ChatBubbles, ChatMessage } from '../../components/chat-bubbles/chat-bub
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, InputComponent, ChatBubbles, Sidebar],
+  imports: [RouterModule, InputComponent, ChatBubbles],
   templateUrl: './home.html',
 })
 export class HomeComponent implements AfterViewChecked {

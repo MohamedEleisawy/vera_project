@@ -1,59 +1,86 @@
-<!-- Bulle utilisateur (à droite) -->
+<!-- Message utilisateur -->
 @if (message.role === 'user') {
   <div class="flex justify-end mb-4">
-    <div class="max-w-[75%] bg-stone-700 text-white rounded-2xl rounded-br-sm px-4 py-3">
-      <p class="text-sm">{{ message.content }}</p>
-      <span class="text-xs text-stone-300 mt-1 block text-right">{{ getFormattedTime() }}</span>
+    <div class="relative max-w-[60%]">
+      <!-- Bulle -->
+      <div class="bg-neutral-beige-50 rounded-tl-[40px] rounded-tr-[25px] rounded-br-none rounded-bl-[50px] shadow-[2px_2px_0px_2px_rgba(0,0,0,0.70)] pl-10 pr-2 py-6">
+        <p class="text-stone-700 text-sm wrap-break-word">{{ message.content }}</p>
+      </div>
     </div>
   </div>
 }
 
-<!-- Bulle assistant (à gauche) -->
+<!-- Message assistant -->
 @if (message.role === 'assistant') {
-  <div class="flex justify-start mb-4">
-    <div class="flex gap-3 max-w-[75%]">
-      <!-- Avatar assistant -->
-      <div
-        class="shrink-0 w-8 h-8 rounded-full bg-neutral-beige-100 flex items-center justify-center"
-      >
-        <svg
-          class="w-4 h-4 text-stone-600"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"
-          />
-        </svg>
-      </div>
-
-      <!-- Contenu message -->
-      <div class="bg-neutral-beige-50 rounded-2xl rounded-tl-sm px-4 py-3">
-        @if (message.isLoading) {
-          <!-- Indicateur de chargement -->
-          <div class="flex gap-1 py-2">
-            <span
-              class="w-2 h-2 bg-stone-400 rounded-full animate-bounce"
-              style="animation-delay: 0ms"
-            ></span>
-            <span
-              class="w-2 h-2 bg-stone-400 rounded-full animate-bounce"
-              style="animation-delay: 150ms"
-            ></span>
-            <span
-              class="w-2 h-2 bg-stone-400 rounded-full animate-bounce"
-              style="animation-delay: 300ms"
-            ></span>
+  <div class="flex justify-start mb-6">
+    <div class="max-w-full w-full">
+      
+      @if (message.isLoading) {
+        <!-- État de chargement -->
+        <div class="flex items-center gap-2 text-stone-400">
+          <div class="flex gap-1">
+            <span class="w-2 h-2 bg-stone-400 rounded-full animate-bounce"></span>
+            <span class="w-2 h-2 bg-stone-400 rounded-full animate-bounce [animation-delay:0.1s]"></span>
+            <span class="w-2 h-2 bg-stone-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
           </div>
-        } @else {
-          <p class="text-sm text-stone-700">{{ message.content }}</p>
-          <span class="text-xs text-stone-400 mt-1 block">{{ getFormattedTime() }}</span>
-        }
-      </div>
+        </div>
+      } @else {
+        <!-- Information véridique -->
+        <h2 class="text-2xl font-serif text-stone-800 mb-3">
+          Information <span class="underline decoration-primary-green-300 decoration-4 underline-offset-4">véridique</span>
+        </h2>
+        
+        <!-- Confiance -->
+        <p class="text-stone-600 text-sm mb-1">
+          Confiance de Vera : <span class="bg-primary-green-100 text-stone-800 px-2 py-0.5 rounded-md font-medium">90%</span>
+        </p>
+        
+        <!-- Sources count -->
+        <p class="text-stone-600 text-sm mb-6">
+          Cette information est exact, selon 
+          <span class="bg-primary-green-100 text-stone-800 px-2 py-0.5 rounded-md">2 sources</span> 
+          en 
+          <span class="bg-primary-green-100 text-stone-800 px-2 py-0.5 rounded-md">2025</span>
+        </p>
+        
+        <!-- Résumé factuel -->
+        <h3 class="text-xl font-serif text-stone-800 mb-2">
+          Résumé <span class="underline decoration-primary-green-300 decoration-4 underline-offset-4">factuel</span>
+        </h3>
+        <p class="text-stone-600 text-sm leading-relaxed mb-6">
+          {{ message.content }}
+        </p>
+        
+        <!-- Les sources fiables -->
+        <h3 class="text-xl font-serif text-stone-800 mb-3">
+          Les sources <span class="underline decoration-primary-green-300 decoration-4 underline-offset-4">fiables</span>
+        </h3>
+        
+        <!-- Liste des sources -->
+        <div class="space-y-3">
+          <!-- Source 1 -->
+          <a href="#" class="flex items-center gap-3 p-3 bg-white rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
+            <div class="w-12 h-12 bg-stone-200 rounded-lg shrink-0 overflow-hidden">
+              <img src="assets/images/placeholder-source.png" alt="" class="w-full h-full object-cover"/>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-stone-800 line-clamp-2">« Le Journal d'un prisonnier » : Nicolas Sarkozy, à peine sorti de prison, annonce la...</p>
+              <p class="text-xs text-stone-400 mt-0.5">Le Monde, 2025</p>
+            </div>
+          </a>
+          
+          <!-- Source 2 -->
+          <a href="#" class="flex items-center gap-3 p-3 bg-white rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
+            <div class="w-12 h-12 bg-stone-200 rounded-lg shrink-0 overflow-hidden">
+              <img src="assets/images/placeholder-source.png" alt="" class="w-full h-full object-cover"/>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-stone-800 line-clamp-2">Nicolas Sarkozy conservera-t-il ses avantages d'ancien président en prison ?</p>
+              <p class="text-xs text-stone-400 mt-0.5">20 minutes, 2025</p>
+            </div>
+          </a>
+        </div>
+      }
     </div>
   </div>
 }
