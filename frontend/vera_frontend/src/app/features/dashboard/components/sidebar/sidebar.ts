@@ -1,11 +1,21 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './sidebar.html',
-  styleUrl: './sidebar.css',
+  styleUrls: ['./sidebar.css']
 })
 export class Sidebar {
+  isOpen = false;
 
+  toggleSidebar(): void {
+    this.isOpen = !this.isOpen;
+  }
+
+  closeSidebar(): void {
+    this.isOpen = false;
+  }
 }

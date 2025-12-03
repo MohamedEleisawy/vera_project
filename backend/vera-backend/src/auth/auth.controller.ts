@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // src/auth/auth.controller.ts
 import { Controller, Post, Body, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -20,3 +21,9 @@ export class AuthController {
     return this.authService.register(body);
   }
 }
+=======
+import { Controller } from '@nestjs/common';
+
+@Controller('auth')
+export class AuthController {}
+>>>>>>> refs/remotes/origin/main

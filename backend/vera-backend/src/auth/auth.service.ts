@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // src/auth/auth.service.ts
 import {
   Injectable,
@@ -60,3 +61,9 @@ export class AuthService {
     };
   }
 }
+=======
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class AuthService {}
+>>>>>>> refs/remotes/origin/main
