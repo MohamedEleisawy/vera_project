@@ -21,39 +21,55 @@ export class YoutubeAnalysisService {
     let sourceUsed = '';
 
     try {
-        // --- ESSAI 1 : Récupération "Bête et Méchante" (Langue par défaut) ---
-        // On ne force plus 'fr' immédiatement, on prend ce que YouTube nous donne par défaut.
-        // Cela contourne souvent les erreurs sur les sous-titres auto-générés.
-        this.logger.log(`Tentative de récupération des sous-titres (Mode Standard)...`);
+        // --- STRATÉGIE "FORCE BRUTE" SUR LES SOUS-TITRES ---
+        this.logger.log(`Tentative de récupération des sous-titres...`);
         
-        let transcriptItems = await YoutubeTranscript.fetchTranscript(videoId)
-            .catch(() => null);
+        let transcriptItems = null;
 
-        // Si le défaut échoue, on tente explicitement l'anglais (souvent présent sur les grosses vidéos)
+        // 1. Essai Standard (Automatique)
+        try {
+            transcriptItems = await YoutubeTranscript.fetchTranscript(videoId);
+        } catch (e) {
+            this.logger.warn(`Echec auto-détection, essai forcé FR...`);
+        }
+
+        // 2. Essai Forcé Français (Si l'auto a échoué)
         if (!transcriptItems) {
-             this.logger.log(`Tentative repli anglais...`);
-             transcriptItems = await YoutubeTranscript.fetchTranscript(videoId, { lang: 'en' })
-                .catch(() => null);
+            try {
+                transcriptItems = await YoutubeTranscript.fetchTranscript(videoId, { lang: 'fr' });
+            } catch (e) {
+                this.logger.warn(`Echec FR, essai forcé EN...`);
+            }
+        }
+
+        // 3. Essai Forcé Anglais (Dernier recours)
+        if (!transcriptItems) {
+             try {
+                transcriptItems = await YoutubeTranscript.fetchTranscript(videoId, { lang: 'en' });
+             } catch (e) {
+                // Rien à faire, on passera aux métadonnées
+             }
         }
 
         if (transcriptItems && transcriptItems.length > 0) {
             const fullText = transcriptItems.map(item => item.text).join(' ');
             
-            // Tronquage intelligent (env. 10k caractères pour Gemini 2.0 Flash qui a une grande fenêtre contextuelle)
+            // ✂️ TRONCATURE À 10 000 CARACTÈRES (Pour éviter l'erreur 500)
             analysisContent = fullText.length > 10000 ? fullText.substring(0, 10000) + '... [Tronqué]' : fullText;
+            
             sourceUsed = 'TRANSCRIPTION COMPLÈTE';
             this.logger.log(`✅ Sous-titres récupérés (${analysisContent.length} chars).`);
         } else {
-            throw new Error('Aucune piste de sous-titres trouvée.');
+            throw new Error('Aucune piste de sous-titres trouvée (Bloqué ou inexistant).');
         }
 
     } catch (error) {
-        // --- ESSAI 2 : Fallback Métadonnées (Titre + Description) ---
-        this.logger.warn(`⚠️ Sous-titres bloqués (Probable mur de cookies ou absence). Passage au mode Métadonnées.`);
+        // --- FALLBACK MÉTADONNÉES ---
+        this.logger.warn(`⚠️ Sous-titres inaccessibles. Passage au mode Métadonnées.`);
         
         try {
             const metadata = await this.getVideoMetadata(videoId);
-            analysisContent = `Titre: ${metadata.title}\n\nDescription et Mots-clés: ${metadata.description}`;
+            analysisContent = `Titre: ${metadata.title}\n\nDescription: ${metadata.description}`;
             sourceUsed = 'MÉTADONNÉES (TITRE + DESCRIPTION)';
             this.logger.log(`✅ Métadonnées récupérées via HTML.`);
         } catch (metaError) {
@@ -72,32 +88,28 @@ export class YoutubeAnalysisService {
     "${analysisContent}"
     
     Instructions :
-    1. Résume les faits principaux évoqués.
-    2. Si c'est une transcription : analyse la véracité des propos.
-    3. Si ce sont des métadonnées : analyse le contexte et les revendications du titre/description.
-    4. Sois clair sur les limitations si tu n'as que le titre.`;
+    1. Résume les faits principaux.
+    2. Vérifie la véracité des propos (Fact-checking).
+    3. Si tu n'as que le titre/description, précise que l'analyse est limitée.`;
 
     return this.analysisService.callVeraModel(prompt, userId);
   }
 
-  // ... (Le reste des méthodes privées getVideoMetadata et extractVideoId reste inchangé)
+  // ... (Méthodes privées inchangées)
   private async getVideoMetadata(videoId: string): Promise<{ title: string, description: string }> {
       const url = `https://www.youtube.com/watch?v=${videoId}`;
       const { data } = await axios.get(url, {
           headers: { 
-              // User-Agent qui ressemble à un vrai navigateur pour passer certains filtres
               'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
               'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7'
           }
       });
-
       const titleMatch = data.match(/<meta name="title" content="([^"]*)"/);
       const descMatch = data.match(/<meta name="description" content="([^"]*)"/);
-
-      const title = titleMatch ? titleMatch[1] : 'Titre inconnu';
-      const description = descMatch ? descMatch[1] : 'Description indisponible';
-
-      return { title, description };
+      return { 
+          title: titleMatch ? titleMatch[1] : 'Titre inconnu', 
+          description: descMatch ? descMatch[1] : 'Description indisponible' 
+      };
   }
 
   private extractVideoId(url: string): string | null {
