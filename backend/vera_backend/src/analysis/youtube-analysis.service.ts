@@ -39,8 +39,8 @@ export class YoutubeAnalysisService {
         if (transcriptItems && transcriptItems.length > 0) {
             const fullText = transcriptItems.map(item => item.text).join(' ');
             
-            // Tronquage intelligent (env. 25k caractères pour Gemini 2.0 Flash qui a une grande fenêtre contextuelle)
-            analysisContent = fullText.length > 25000 ? fullText.substring(0, 25000) + '... [Tronqué]' : fullText;
+            // Tronquage intelligent (env. 10k caractères pour Gemini 2.0 Flash qui a une grande fenêtre contextuelle)
+            analysisContent = fullText.length > 10000 ? fullText.substring(0, 10000) + '... [Tronqué]' : fullText;
             sourceUsed = 'TRANSCRIPTION COMPLÈTE';
             this.logger.log(`✅ Sous-titres récupérés (${analysisContent.length} chars).`);
         } else {
