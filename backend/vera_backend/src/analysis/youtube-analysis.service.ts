@@ -21,10 +21,10 @@ export class YoutubeAnalysisService {
     let sourceUsed = '';
 
     try {
-        // --- STRATÉGIE "FORCE BRUTE" SUR LES SOUS-TITRES ---
         this.logger.log(`Tentative de récupération des sous-titres...`);
         
-        let transcriptItems = null;
+        // 🎯 CORRECTION ICI : On ajoute ': any' pour autoriser le changement de type
+        let transcriptItems: any = null;
 
         // 1. Essai Standard (Automatique)
         try {
@@ -54,7 +54,7 @@ export class YoutubeAnalysisService {
         if (transcriptItems && transcriptItems.length > 0) {
             const fullText = transcriptItems.map(item => item.text).join(' ');
             
-            // ✂️ TRONCATURE À 10 000 CARACTÈRES (Pour éviter l'erreur 500)
+            // ✂️ TRONCATURE À 10 000 CARACTÈRES
             analysisContent = fullText.length > 10000 ? fullText.substring(0, 10000) + '... [Tronqué]' : fullText;
             
             sourceUsed = 'TRANSCRIPTION COMPLÈTE';
