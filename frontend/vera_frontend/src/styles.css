@@ -1,8 +1,64 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import url('https://fonts.googleapis.com/css2?family=Fustat:wght@400;500;600;700;800&display=swap');
+
 @import 'tailwindcss';
 
+@layer base {
+  html {
+    font-family: 'Fustat', sans-serif;
+  }
+}
+
+@layer components {
+  .text-body-header {
+    font-family: Lastik;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 38px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0%;
+
+  }
+
+  .text-body-paragraph{
+    font-family: Fustat;
+    font-weight: 400;
+    font-style: Regular;
+    padding-top:8px;
+    font-size: 16px;
+    leading-trim: NONE;
+    line-height: 130%;
+    letter-spacing: 0%;
+  }
+
+  .title{
+    font-family: Lastik;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 32px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0%;
+  }
+  .big-title{
+    font-family: Lastik;
+    font-weight: 400;
+    font-style: Regular;
+  font-size: font-size/display-1;
+  leading-trim: NONE;
+  line-height: 110.00000000000001%;
+  letter-spacing: 0%;
+  }
+
+
+}
+
 @theme {
+  /* Font Family */
+  --font-family-sans: 'Fustat', sans-serif;
+
   /* Primary Green */
   --color-primary-green-50: #f0ffe4;
   --color-primary-green-100: #d8f9be;

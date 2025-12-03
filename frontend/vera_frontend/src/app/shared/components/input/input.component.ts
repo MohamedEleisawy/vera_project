@@ -254,4 +254,30 @@ export class InputComponent {
     if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext || '')) return 'image';
     return 'file';
   }
+
+  /**
+ * Événement émis lors du clic sur le bouton microphone
+ */
+@Output() micClicked = new EventEmitter<void>();
+
+/**
+ * Événement émis lors de l'arrêt de l'enregistrement
+ */
+@Output() recordingStopped = new EventEmitter<void>();
+
+/** Indique si l'enregistrement audio est en cours */
+isRecording = false;
+
+/**
+ * Gère le clic sur le bouton microphone
+ * Toggle l'état d'enregistrement
+ */
+onMicClick(): void {
+  this.isRecording = !this.isRecording;
+  if (this.isRecording) {
+    this.micClicked.emit();
+  } else {
+    this.recordingStopped.emit();
+  }
+}
 }
