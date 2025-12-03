@@ -1,5 +1,3 @@
-// src/main.ts (Version FUSIONNÉE et OPTIMISÉE)
-
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { DataSource } from 'typeorm';
@@ -14,33 +12,32 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // 1. Préfixe API Global
-  // Toutes les routes commenceront par /api (ex: /api/analyze, /api/auth/login)
-  app.setGlobalPrefix('api');
+  // ⚠️ FIX N°1 : Je commente. Le Frontend appelle directement /auth, pas /api/auth.
+  // app.setGlobalPrefix('api'); 
 
   // 2. Augmentation de la taille limite des requêtes (CRITIQUE pour l'envoi d'images/audio)
-  // Par défaut, NestJS bloque à 100kb. On passe à 50mb.
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
   // 3. Validation des données entrantes (DTO)
-  app.useGlobalPipes(
-    new ValidationPipe({
-      transform: true, // Transforme les JSON en objets typés
-      whitelist: true, // Rejette les champs non autorisés
-      forbidNonWhitelisted: true, // Signale une erreur si champ inconnu
-    }),
-  );
+  app.useGlobalPipes(new ValidationPipe({
+    transform: true,
+    whitelist: true,
+    forbidNonWhitelisted: true,
+  }));
 
-  // 4. Configuration CORS (Pour autoriser Angular ET le développement local)
+  // 4. Configuration CORS (LISTE BLANCHE MISE À JOUR)
   app.enableCors({
     origin: (origin, callback) => {
-      // Liste blanche des domaines autorisés
+      // ✅ FIX N°2 : J'ai mis à jour cette liste avec TON nouveau domaine Vercel.
       const allowedOrigins = [
-        'http://localhost:4200', // Angular local
-        'http://127.0.0.1:4200', // Angular local (variante IP)
-        'https://vera-pwa.web.app', // (Exemple) Votre future URL de prod si connue
+        'http://localhost:4200',
+        'http://127.0.0.1:4200',
+        'https://projetvera2025.vercel.app', // TON DOMAINE VERCEL ACTUEL
+        'https://vera-pwa.web.app', // Placeholder
+        'https://vera-project-3cyt.vercel.app', // Ancien domaine
       ];
-      // On autorise si l'origine est dans la liste OU si pas d'origine (ex: Postman ou Bot Telegram en local)
+      
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -49,7 +46,7 @@ async function bootstrap() {
       }
     },
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true, // Autorise les cookies/headers sécurisés
+    credentials: true,
     allowedHeaders: 'Content-Type, Accept, Authorization',
   });
 
@@ -58,16 +55,16 @@ async function bootstrap() {
     const dataSource = app.get(DataSource);
     const userRepo = dataSource.getRepository(User);
 
-    // Vérification de la connexion DB avant de faire une requête
     if (!dataSource.isInitialized) {
-      await dataSource.initialize();
+        await dataSource.initialize();
     }
 
     const adminExists = await userRepo.findOneBy({ email: 'admin@vera.com' });
 
     if (!adminExists) {
-      console.log('🌱Base de données : Création du compte Admin par défaut...');
+      console.log('🌱 Base de données : Création du compte Admin par défaut...');
       const hashedPassword = await bcrypt.hash('Password123!', 10);
+      
       const newAdmin = userRepo.create({
         email: 'admin@vera.com',
         nom: 'Admin',
@@ -76,6 +73,7 @@ async function bootstrap() {
         isAdmin: true,
         actif: true,
       });
+      
       await userRepo.save(newAdmin);
       console.log('✅ Admin créé avec succès : admin@vera.com / Password123!');
     } else {
@@ -83,17 +81,17 @@ async function bootstrap() {
     }
   } catch (error) {
     console.error('❌ Erreur lors du Seed (Création Admin) :', error.message);
-    // On ne bloque pas le démarrage du serveur pour autant
   }
 
   // 6. Démarrage du serveur
-  await app.listen(3000);
-  console.log(`
-  🚀 ---------------------------------------------------
+  // ✅ FIX N°3 : On utilise process.env.PORT pour s'adapter à Railway ou Render
+  await app.listen(process.env.PORT || 3000); 
+  
+  console.log(` 
+  🚀 --------------------------------------------------- 
   🚀 SERVEUR VERA BACKEND DÉMARRÉ
-  🚀 URL : http://localhost:3000
-  🚀 API : http://localhost:3000/api
-  🚀 ---------------------------------------------------
+  🚀 URL : http://localhost:${process.env.PORT || 3000} (ou port Railway)
+  🚀 --------------------------------------------------- 
   `);
 }
 
