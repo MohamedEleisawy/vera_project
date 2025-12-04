@@ -1,21 +1,34 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common'; // Important pour afficher les dates
+import { AdminService } from '../../../../core/services/admin.service'; // Adapte le chemin
+import { User } from '../../../../core/models/user.model';
 
 @Component({
-  selector: 'app-dashboard-admins',
+  selector: 'app-admins',
+  standalone: true,
+  imports: [CommonModule, DatePipe], // DatePipe permet d'utiliser le pipe | date
   templateUrl: './dashboard-admins.html',
-  styleUrls: ['./dashboard-admins.css']
 })
-export class DashboardAdminsComponent implements OnInit {
-  // Exemple de données
-  admins = [
-    { id: 1, nom: 'Jean Dupont', email: 'jean@admin.com', role: 'Super Admin' },
-    { id: 2, nom: 'Marie Curie', email: 'marie@admin.com', role: 'Modérateur' },
-    { id: 3, nom: 'Paul Martin', email: 'paul@admin.com', role: 'Admin' }
-  ];
+export class AdminsComponent implements OnInit {
+  adminsList: User[] = [];
+  isLoading = true;
 
-  constructor() { }
+  constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
-    // Ici, tu ferais ton appel de service : this.adminService.getAll().subscribe(...)
+    this.loadAdmins();
+  }
+
+  loadAdmins(): void {
+    this.adminService.getAdmins().subscribe({
+      next: (data) => {
+        this.adminsList = data;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des admins', err);
+        this.isLoading = false;
+      }
+    });
   }
 }
