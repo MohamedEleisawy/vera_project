@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-dashboard-sondage',
   templateUrl: './dashboard-sondage.html',
   styleUrls: ['./dashboard-sondage.css'],
+  standalone: true,
+  imports: [CommonModule],
 })
 export class DashboardSondageComponent implements OnInit {
   sondageUrl: SafeResourceUrl;
