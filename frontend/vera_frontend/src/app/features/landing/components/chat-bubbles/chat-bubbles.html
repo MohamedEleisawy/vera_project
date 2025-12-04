@@ -1,42 +1,75 @@
 <!-- Message utilisateur -->
 @if (message.role === 'user') {
-  <div class="flex justify-end mb-4">
+  <article class="flex justify-end mb-4" role="article" aria-label="Votre message">
     <div class="relative max-w-[60%]">
       <!-- Bulle -->
-      <div class="bg-neutral-beige-50 rounded-tl-[40px] rounded-tr-[25px] rounded-br-none rounded-bl-[50px] shadow-[2px_2px_0px_2px_rgba(0,0,0,0.70)] pl-10 pr-2 py-6">
-        <p class="text-stone-700 text-sm wrap-break-word">{{ message.content }}</p>
+
+      <div class="relative inline-block max-w-md">
+        <!-- Bulle principale -->
+        <div class="bg-[#FDF8F3] rounded-3xl px-6 py-5 drop-shadow-[2px_2px_0px_#000000]">
+          <p class="text-stone-700 text-sm wrap-break-word">{{ message.content }}</p>
+          <time [attr.datetime]="message.timestamp.toISOString()" class="sr-only">
+            Envoyé à {{ getFormattedTime() }}
+          </time>
+        </div>
+
+        <!-- Queue de la bulle (en bas à droite) -->
+        <div class="absolute -bottom-3 right-6 drop-shadow-[2px_2px_0px_#000000]">
+          <svg
+            width="24"
+            height="20"
+            viewBox="0 0 24 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M0 0C8 0 16 8 24 20C16 12 8 8 0 8V0Z" fill="#FDF8F3" />
+          </svg>
+        </div>
       </div>
     </div>
-  </div>
+  </article>
 }
 
 <!-- Message assistant -->
 @if (message.role === 'assistant') {
   <div class="flex justify-start mb-6">
     <div class="max-w-full w-full">
-      
       @if (message.isLoading) {
         <!-- État de chargement -->
         <div class="flex items-center gap-2 text-stone-400">
           <div class="flex gap-1">
             <span class="w-2 h-2 bg-stone-400 rounded-full animate-bounce"></span>
-            <span class="w-2 h-2 bg-stone-400 rounded-full animate-bounce [animation-delay:0.1s]"></span>
-            <span class="w-2 h-2 bg-stone-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+            <span
+              class="w-2 h-2 bg-stone-400 rounded-full animate-bounce [animation-delay:0.1s]"
+            ></span>
+            <span
+              class="w-2 h-2 bg-stone-400 rounded-full animate-bounce [animation-delay:0.2s]"
+            ></span>
           </div>
         </div>
       } @else {
         <!-- Information véridique -->
         <h2 class="text-2xl font-serif text-stone-800 mb-3">
+<<<<<<< HEAD
           Information <span class="underline decoration-primary-green-300 decoration-4 underline-offset-4">analysée</span>
         </h2>
         
         <!-- Verdict -->
         @if (message.verdict) {
              <p class="text-stone-800 font-bold mb-2">Verdict : {{ message.verdict }}</p>
+=======
+          Information <span class="bg-primary-green-100 rounded-2xl p-2">analysée</span>
+        </h2>
+
+        <!-- Verdict -->
+        @if (message.verdict) {
+          <p class="text-stone-800 font-bold mb-2">Verdict : {{ message.verdict }}</p>
+>>>>>>> b39c2ffa90710d37494a838fd6548463299f74b7
         }
 
         <!-- Confiance -->
         <p class="text-stone-600 text-sm mb-1">
+<<<<<<< HEAD
           Confiance de Vera : 
           <span class="px-2 py-0.5 rounded-md font-medium" 
                 [class]="getConfidenceColor(message.confidence)">
@@ -44,14 +77,26 @@
           </span>
         </p>
         
+=======
+          Confiance de Vera :
+          <span
+            class="px-2 py-0.5 bg-stone-800 text-white rounded-md font-medium"
+            [class]="getConfidenceColor(message.confidence)"
+          >
+            {{ message.confidence ? (message.confidence * 100 | number: '1.0-0') : 0 }}%
+          </span>
+        </p>
+
+>>>>>>> b39c2ffa90710d37494a838fd6548463299f74b7
         <p class="text-stone-600 text-sm mb-6">
           Analyse basée sur l'IA et les bases de données de fact-checking.
         </p>
-        
+
         <!-- Résumé factuel -->
         <h3 class="text-xl font-serif text-stone-800 mb-2">
-          Résumé <span class="underline decoration-primary-green-300 decoration-4 underline-offset-4">factuel</span>
+          Résumé <span class="bg-primary-green-100 rounded-2xl p-2">factuel</span>
         </h3>
+<<<<<<< HEAD
         
         <p class="text-stone-600 text-sm leading-relaxed mb-6 whitespace-pre-line">
           {{ message.content }}
@@ -81,6 +126,41 @@
                    <span class="text-xs text-stone-500 absolute z-[-1] font-bold">WEB</span>
                 </div>
                 
+=======
+
+        <p class="text-stone-600 text-sm leading-relaxed mb-6 whitespace-pre-line">
+          {{ message.content }}
+        </p>
+
+        <!-- Les sources fiables (Condition d'affichage : Seulement s'il y a des sources) -->
+        @if (message.sources && message.sources.length > 0) {
+          <h3 class="text-xl font-serif text-stone-800 mb-3">
+            Sources <span class="bg-primary-green-100 rounded-2xl p-2">recherchées</span>
+          </h3>
+
+          <div class="space-y-3">
+            @for (source of message.sources; track source.url) {
+              <a
+                [href]="source.url"
+                target="_blank"
+                class="flex items-center gap-3 p-3 rounded-xl transition-colors"
+              >
+                <!-- Carré de l'image (Favicon) -->
+                <div
+                  class="w-12 h-12 bg-stone-200 rounded-lg shrink-0 flex items-center justify-center overflow-hidden relative p-2"
+                >
+                  <img
+                    [src]="'https://www.google.com/s2/favicons?domain=' + source.domain + '&sz=128'"
+                    alt="Logo"
+                    class="w-full h-full object-contain"
+                    onerror="this.style.display = 'none'"
+                  />
+
+                  <!-- Fallback texte (WEB) qui apparaît derrière si l'image charge mal -->
+                  <span class="text-xs text-stone-500 absolute z-[-1] font-bold">WEB</span>
+                </div>
+
+>>>>>>> b39c2ffa90710d37494a838fd6548463299f74b7
                 <div class="flex-1 min-w-0">
                   <p class="text-sm font-medium text-stone-800 line-clamp-2">{{ source.title }}</p>
                   <p class="text-xs text-stone-400 mt-0.5">{{ source.domain }}</p>

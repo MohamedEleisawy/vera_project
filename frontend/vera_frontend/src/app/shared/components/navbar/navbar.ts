@@ -14,8 +14,8 @@ export class Navbar {
 
   // 👇 CORRECTION ICI : On injecte 'private router: Router'
   constructor(
-    public authService: AuthService, 
-    private router: Router
+    public authService: AuthService,
+    private router: Router,
   ) {}
 
   toggleMenu() {

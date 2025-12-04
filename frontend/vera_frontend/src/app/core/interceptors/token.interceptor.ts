@@ -10,14 +10,14 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const notificationService = inject(NotificationService);
   const router = inject(Router);
-  
+
   const token = authService.getToken();
 
   // 1. Cloner la requête pour ajouter le token (comme avant)
   let request = req;
   if (token) {
     request = req.clone({
-      setHeaders: { Authorization: `Bearer ${token}` }
+      setHeaders: { Authorization: `Bearer ${token}` },
     });
   }
 
@@ -29,7 +29,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
       // Gestion des erreurs côté Client (ex: pas d'internet)
       if (error.error instanceof ErrorEvent) {
         errorMessage = `Erreur réseau : ${error.error.message}`;
-      } 
+      }
       // Gestion des erreurs côté Serveur (ce qui vient de NestJS)
       else {
         // Grâce à notre filtre Backend, error.error.message contient le message propre
@@ -38,17 +38,17 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
         }
 
         // --- SCÉNARIOS SPÉCIAUX ---
-        
+
         // Cas 401 : Token expiré ou invalide
         if (error.status === 401) {
           notificationService.showError('Session expirée, veuillez vous reconnecter.');
           authService.logout(); // Déconnecte proprement
           router.navigate(['/login']);
         }
-        
+
         // Cas 403 : Interdit (ex: User veut accéder à une page Admin)
         if (error.status === 403) {
-          notificationService.showError('Vous n\'avez pas les droits pour effectuer cette action.');
+          notificationService.showError("Vous n'avez pas les droits pour effectuer cette action.");
         }
 
         // Cas 500 : Serveur planté
@@ -64,6 +64,6 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
       // On renvoie l'erreur pour que le composant puisse aussi réagir (ex: arrêter le spinner)
       return throwError(() => error);
-    })
+    }),
   );
 };

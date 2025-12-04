@@ -40,6 +40,13 @@ export class InputComponent {
   @Output() micClicked = new EventEmitter<void>();
   @Output() recordingStopped = new EventEmitter<void>();
 
+<<<<<<< HEAD
+=======
+  // Nouveaux outputs pour le micro
+  @Output() micClicked = new EventEmitter<void>();
+  @Output() recordingStopped = new EventEmitter<void>();
+
+>>>>>>> b39c2ffa90710d37494a838fd6548463299f74b7
   message = '';
   private isClickingSuggestion = false;
   attachedFiles: AttachedFile[] = [];
@@ -70,7 +77,11 @@ export class InputComponent {
           name: this.truncateFileName(file.name),
           size: this.formatFileSize(file.size),
           type: this.getFileType(file.name),
+<<<<<<< HEAD
           file: file // 👈 CORRECTION : On sauvegarde le fichier binaire !
+=======
+          file: file, // 👈 CORRECTION : On sauvegarde le fichier binaire !
+>>>>>>> b39c2ffa90710d37494a838fd6548463299f74b7
         });
       });
       input.value = '';
@@ -146,4 +157,8 @@ export class InputComponent {
     if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext || '')) return 'image';
     return 'file';
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b39c2ffa90710d37494a838fd6548463299f74b7

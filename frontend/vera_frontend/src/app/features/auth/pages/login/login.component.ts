@@ -17,11 +17,14 @@ export class LoginComponent {
   isLoading = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   onSubmit(): void {
     this.errorMessage = '';
-    
+
     if (!this.email || !this.password) {
       this.errorMessage = 'Veuillez remplir tous les champs';
       return;
@@ -31,7 +34,7 @@ export class LoginComponent {
 
     const credentials = {
       email: this.email,
-      motDePasse: this.password // Mapping important
+      motDePasse: this.password, // Mapping important
     };
 
     this.authService.login(credentials).subscribe({
@@ -39,7 +42,7 @@ export class LoginComponent {
         this.isLoading = false;
         console.log('Login réussi, token stocké');
         // Redirection vers le dashboard admin
-        this.router.navigate(['/dashboard']); 
+        this.router.navigate(['/dashboard']);
       },
       error: (error: any) => {
         this.isLoading = false;
@@ -49,7 +52,7 @@ export class LoginComponent {
         } else {
           this.errorMessage = 'Problème de connexion serveur.';
         }
-      }
+      },
     });
   }
 }
