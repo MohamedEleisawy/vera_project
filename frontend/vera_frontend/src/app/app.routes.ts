@@ -5,13 +5,10 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { DashboardHome } from './features/dashboard/pages/dashboard-home/dashboard-home.component';
 import { LoginComponent } from './features/auth/pages/login/login.component';
 import { RegisterComponent } from './features/auth/pages/register/register.component';
-<<<<<<< HEAD
 import { DashboardAdminsComponent } from './features/dashboard/pages/dashboard-admins/dashboard-admins';
 import { DashboardSondageComponent } from './features/dashboard/pages/dashboard-sondage/dashboard-sondage';
-=======
 import { Confidentialite } from './features/landing/pages/confidentialite/confidentialite';
 import { MentionsLegales } from './features/landing/pages/CGU-mentionslegales/mentionslegales.component';
->>>>>>> b39c2ffa90710d37494a838fd6548463299f74b7
 
 export const routes: Routes = [
   {
@@ -44,8 +41,6 @@ export const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
   },
-<<<<<<< HEAD
-=======
   {
     path: 'confidentialite',
     component: Confidentialite,
@@ -55,7 +50,6 @@ export const routes: Routes = [
     component: MentionsLegales,
   },
 
->>>>>>> b39c2ffa90710d37494a838fd6548463299f74b7
   // Redirection par défaut
   { path: '**', redirectTo: '' },
 ];
