@@ -12,9 +12,6 @@ export const appConfig: ApplicationConfig = {
 
     provideRouter(routes),
 
-    provideHttpClient(
-      withFetch(), 
-      withInterceptors([tokenInterceptor])
-    ),
+    provideHttpClient(withFetch(), withInterceptors([tokenInterceptor])),
   ],
 };

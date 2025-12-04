@@ -6,22 +6,22 @@ import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common'; // 👈 IMPORTANT
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
-  
+
   // 👇 On injecte l'ID de la plateforme pour savoir où on est (Serveur ou Navigateur)
-  private platformId = inject(PLATFORM_ID); 
-  
-  private apiUrl = 'http://localhost:3000/auth'; 
+  private platformId = inject(PLATFORM_ID);
+
+  private apiUrl = 'http://localhost:3000/auth';
 
   // --- GESTION DE L'ÉTAT (State Management) ---
-  
+
   // ⚠️ CORRECTION ICI : On initialise à false par défaut pour ne pas faire planter le serveur
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
-  
+
   public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
   constructor() {
@@ -48,9 +48,9 @@ export class AuthService {
           if (isPlatformBrowser(this.platformId)) {
             localStorage.setItem('token', response.access_token);
           }
-          this.isAuthenticatedSubject.next(true); 
+          this.isAuthenticatedSubject.next(true);
         }
-      })
+      }),
     );
   }
 

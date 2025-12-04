@@ -2,14 +2,13 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificationService {
-
   // Affiche un succès (Vert)
   showSuccess(message: string) {
     // Plus tard, tu remplaceras ça par un beau composant Tailwind
-    console.log(`✅ SUCCÈS : ${message}`); 
+    console.log(`✅ SUCCÈS : ${message}`);
     // alert(message); // Décommente si tu veux une popup native temporaire
   }
 

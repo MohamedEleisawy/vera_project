@@ -13,14 +13,32 @@
   class="fixed top-0 left-0 h-screen bg-neutral-beige-50 border-r border-stone-200 z-40 transition-all duration-300 flex flex-col"
 >
   <!-- Header -->
-  <div class="flex items-center p-3 border-b border-stone-200" [class.justify-between]="isExpanded" [class.justify-center]="!isExpanded">
+  <div
+    class="flex items-center p-3 border-b border-stone-200"
+    [class.justify-between]="isExpanded"
+    [class.justify-center]="!isExpanded"
+  >
     <!-- Logo -->
     @if (isExpanded) {
       <div class="flex items-center gap-2 overflow-hidden">
-        <svg width="24" height="24" viewBox="0 0 57 57" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M32.584 56.5853C33.243 56.5284 33.8009 56.0739 33.9838 55.4383L36.7057 48.5284C37.3608 46.2517 36.6725 47.0008 35.7146 44.8339C35.2184 43.7114 34.7538 42.6515 34.3494 41.7289C33.6343 40.0972 33.1075 38.8951 32.9266 38.5362L22.4292 18.5391C21.6863 16.9868 20.9674 15.6213 20.3347 14.4196C17.593 9.21193 16.4705 7.07992 22.0308 6.14486C23.7996 5.88014 24.6216 5.02537 24.516 3.80283C24.4104 2.58027 23.3429 1.88867 21.6756 2.03265L2.00196 3.73164C-0.776811 3.97161 -0.672784 7.76958 2.37628 8.06613C4.74883 8.30911 8.01864 11.1619 11.9811 19.4414L30.4491 55.2022C30.98 56.1639 31.6949 56.6621 32.584 56.5853Z" fill="black"/>
-<path d="M53.0171 21.1541C53.9878 20.0295 56.6433 15.9283 56.5699 12.666C56.5699 5.22613 50.2899 -0.162955 42.8798 0.00376412C35.4696 0.170483 29.5847 6.57061 29.7354 13.2698C29.8861 19.9689 36.0154 25.2645 43.4256 25.0978C43.6859 25.092 43.9443 25.0794 44.2006 25.0604C44.1454 25.3115 44.0828 25.572 44.0128 25.8417C43.5915 27.4655 42.0262 31.1988 41.8943 31.5642C41.182 33.1106 43.2635 34.4011 44.3318 33.0754L53.0171 21.1541Z" fill="black"/>
-</svg>
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 57 57"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M32.584 56.5853C33.243 56.5284 33.8009 56.0739 33.9838 55.4383L36.7057 48.5284C37.3608 46.2517 36.6725 47.0008 35.7146 44.8339C35.2184 43.7114 34.7538 42.6515 34.3494 41.7289C33.6343 40.0972 33.1075 38.8951 32.9266 38.5362L22.4292 18.5391C21.6863 16.9868 20.9674 15.6213 20.3347 14.4196C17.593 9.21193 16.4705 7.07992 22.0308 6.14486C23.7996 5.88014 24.6216 5.02537 24.516 3.80283C24.4104 2.58027 23.3429 1.88867 21.6756 2.03265L2.00196 3.73164C-0.776811 3.97161 -0.672784 7.76958 2.37628 8.06613C4.74883 8.30911 8.01864 11.1619 11.9811 19.4414L30.4491 55.2022C30.98 56.1639 31.6949 56.6621 32.584 56.5853Z"
+            fill="black"
+          />
+          <path
+            d="M53.0171 21.1541C53.9878 20.0295 56.6433 15.9283 56.5699 12.666C56.5699 5.22613 50.2899 -0.162955 42.8798 0.00376412C35.4696 0.170483 29.5847 6.57061 29.7354 13.2698C29.8861 19.9689 36.0154 25.2645 43.4256 25.0978C43.6859 25.092 43.9443 25.0794 44.2006 25.0604C44.1454 25.3115 44.0828 25.572 44.0128 25.8417C43.5915 27.4655 42.0262 31.1988 41.8943 31.5642C41.182 33.1106 43.2635 34.4011 44.3318 33.0754L53.0171 21.1541Z"
+            fill="black"
+          />
+        </svg>
       </div>
     }
 
@@ -55,12 +73,7 @@
       [class.justify-center]="!isExpanded"
     >
       <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M12 4v16m8-8H4"
-        />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
       </svg>
       @if (isExpanded) {
         <span class="whitespace-nowrap">Nouvelle conversation</span>
@@ -110,7 +123,7 @@
       <div class="pt-4 pb-2">
         <span class="px-3 text-xs font-medium text-stone-500 uppercase">Vos chats</span>
       </div>
-      
+
       <!-- Liste des chats récents -->
       <a
         href="#"

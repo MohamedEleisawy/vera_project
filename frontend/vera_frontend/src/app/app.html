@@ -1,8 +1,14 @@
 <div class="min-h-screen pt-4">
-  <div class="min-h-screen pt-16 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/images/home-background.png');">
-  <app-navbar isMenuOpen="false"></app-navbar>
-  <main class="flex-1">
-    <router-outlet></router-outlet>
-  </main>
-  <app-footer></app-footer>
+  <div
+    class="min-h-screen pt-16 bg-cover bg-center bg-no-repeat"
+    style="background-image: url('assets/images/home-background.png')"
+  >
+    <app-cookie-consent></app-cookie-consent>
+
+    <app-navbar isMenuOpen="false"></app-navbar>
+    <main class="flex-1">
+      <router-outlet></router-outlet>
+    </main>
+    <app-footer></app-footer>
+  </div>
 </div>

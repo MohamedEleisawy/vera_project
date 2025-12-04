@@ -1,7 +1,7 @@
 // src/environments/environment.ts
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:3000/api',
+  production: true,
+  apiUrl: 'https://vera-project-production.up.railway.app/',
   appName: 'MonApp',
   version: '1.0.0',
 
