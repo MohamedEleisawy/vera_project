@@ -12,7 +12,6 @@ import { environment } from '../../../environment/environment';
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
-<<<<<<< HEAD
   
   // Injection de l'ID de plateforme (pour savoir si on est sur le serveur ou le navigateur)
   private platformId = inject(PLATFORM_ID); 
@@ -21,20 +20,10 @@ export class AuthService {
   // Cela donnera 'http://localhost:3000/auth' en dev
   // Et 'https://ton-app-railway.app/auth' en production
   private apiUrl = `${environment.apiUrl}/auth`; 
+  // private apiUrl = 'http://localhost:3000/auth';
 
   // --- GESTION DE L'ÉTAT (State Management) ---
   // Initialisé à false pour éviter les erreurs côté serveur (SSR)
-=======
-
-  // 👇 On injecte l'ID de la plateforme pour savoir où on est (Serveur ou Navigateur)
-  private platformId = inject(PLATFORM_ID);
-
-  private apiUrl = 'http://localhost:3000/auth';
-
-  // --- GESTION DE L'ÉTAT (State Management) ---
-
-  // ⚠️ CORRECTION ICI : On initialise à false par défaut pour ne pas faire planter le serveur
->>>>>>> b39c2ffa90710d37494a838fd6548463299f74b7
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
 
   public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
