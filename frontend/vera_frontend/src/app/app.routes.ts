@@ -5,7 +5,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { DashboardHome } from './features/dashboard/pages/dashboard-home/dashboard-home.component';
 import { LoginComponent } from './features/auth/pages/login/login.component';
 import { RegisterComponent } from './features/auth/pages/register/register.component';
-import { DashboardAdminsComponent } from './features/dashboard/pages/dashboard-admins/dashboard-admins';
+import { DashboardAdminsComponent } from './features/dashboard/pages/dashboard-admins/dashboard-admins.component';
 import { DashboardSondageComponent } from './features/dashboard/pages/dashboard-sondage/dashboard-sondage';
 import { Confidentialite } from './features/landing/pages/confidentialite/confidentialite';
 import { MentionsLegales } from './features/landing/pages/CGU-mentionslegales/mentionslegales.component';
