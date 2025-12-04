@@ -1,8 +1,10 @@
 // src/app.module.ts
-
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+// 1. Import du module Throttler
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core'; // Pour appliquer le garde globalement
 
 // --- Imports des Modules de Configuration Globale ---
 import { ConfigModule } from '@nestjs/config';
@@ -16,11 +18,19 @@ import { User } from './users/user.entity';
 // 1. Le module d'analyse principal
 import { AnalysisModule } from './analysis/analysis.module';
 
-// 2. 🎯 CORRECTION ICI : Le module YouTube est maintenant DANS le dossier analysis
+// 2. Le module YouTube
 import { YoutubeAnalysisModule } from './analysis/youtube-analysis.module';
 
 @Module({
   imports: [
+    // 🎯 0. CONFIGURATION DU RATE LIMITING (10 requêtes max par minute par IP)
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000, // Durée de vie du compteur (60 000 ms = 1 minute)
+        limit: 10,  // Nombre maximum de requêtes autorisées par fenêtre de temps
+      },
+    ]),
+
     // 1. Charge les variables d'environnement (.env)
     ConfigModule.forRoot(),
 
@@ -48,9 +58,16 @@ import { YoutubeAnalysisModule } from './analysis/youtube-analysis.module';
     // 5. Modules Locaux
     AuthModule,
     AnalysisModule,
-    YoutubeAnalysisModule, // Charge le module YouTube corrigé
+    YoutubeAnalysisModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    // 🎯 Application globale du ThrottlerGuard à toute l'application
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}
