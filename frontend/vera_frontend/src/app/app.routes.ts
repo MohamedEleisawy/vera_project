@@ -27,8 +27,8 @@ export const routes: Routes = [
       // Route: /dashboard/sondage
       { path: 'sondage', component: DashboardSondageComponent },
       
-      // Route: /dashboard/admins
-      { path: 'admins', component: DashboardAdminsComponent }
+      // Route: /dashboard/admin
+      { path: 'admin', component: DashboardAdminsComponent }
     ]
   },
   // Route de connexion

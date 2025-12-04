@@ -1,179 +1,113 @@
-<!-- Overlay (visible quand sidebar expanded) -->
 @if (isExpanded) {
   <div
     (click)="toggleSidebar()"
-    class="fixed inset-0 bg-black/20 z-30 lg:hidden transition-opacity"
+    class="fixed inset-0 bg-black/20 z-30 lg:hidden transition-opacity backdrop-blur-sm"
   ></div>
 }
 
-<!-- Sidebar container -->
 <aside
   [class.w-64]="isExpanded"
-  [class.w-14]="!isExpanded"
-  class="fixed top-0 left-0 h-screen bg-neutral-beige-50 border-r border-stone-200 z-40 transition-all duration-300 flex flex-col"
+  [class.w-[4.5rem]]="!isExpanded"
+  class="fixed top-0 left-0 h-screen bg-stone-50 border-r border-stone-200 shadow-sm z-40 transition-[width] duration-300 ease-in-out flex flex-col"
 >
-  <!-- Header -->
   <div
-    class="flex items-center p-3 border-b border-stone-200"
+    class="flex items-center h-16 px-3 border-b border-stone-200 shrink-0"
     [class.justify-between]="isExpanded"
     [class.justify-center]="!isExpanded"
   >
-    <!-- Logo -->
-    @if (isExpanded) {
-      <div class="flex items-center gap-2 overflow-hidden">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 57 57"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M32.584 56.5853C33.243 56.5284 33.8009 56.0739 33.9838 55.4383L36.7057 48.5284C37.3608 46.2517 36.6725 47.0008 35.7146 44.8339C35.2184 43.7114 34.7538 42.6515 34.3494 41.7289C33.6343 40.0972 33.1075 38.8951 32.9266 38.5362L22.4292 18.5391C21.6863 16.9868 20.9674 15.6213 20.3347 14.4196C17.593 9.21193 16.4705 7.07992 22.0308 6.14486C23.7996 5.88014 24.6216 5.02537 24.516 3.80283C24.4104 2.58027 23.3429 1.88867 21.6756 2.03265L2.00196 3.73164C-0.776811 3.97161 -0.672784 7.76958 2.37628 8.06613C4.74883 8.30911 8.01864 11.1619 11.9811 19.4414L30.4491 55.2022C30.98 56.1639 31.6949 56.6621 32.584 56.5853Z"
-            fill="black"
-          />
-          <path
-            d="M53.0171 21.1541C53.9878 20.0295 56.6433 15.9283 56.5699 12.666C56.5699 5.22613 50.2899 -0.162955 42.8798 0.00376412C35.4696 0.170483 29.5847 6.57061 29.7354 13.2698C29.8861 19.9689 36.0154 25.2645 43.4256 25.0978C43.6859 25.092 43.9443 25.0794 44.2006 25.0604C44.1454 25.3115 44.0828 25.572 44.0128 25.8417C43.5915 27.4655 42.0262 31.1988 41.8943 31.5642C41.182 33.1106 43.2635 34.4011 44.3318 33.0754L53.0171 21.1541Z"
-            fill="black"
-          />
-        </svg>
-      </div>
-    }
+    <div class="flex items-center justify-center overflow-hidden transition-all duration-300"
+         [class.w-auto]="isExpanded"
+         [class.w-0]="!isExpanded"
+         [class.opacity-100]="isExpanded"
+         [class.opacity-0]="!isExpanded">
+        @if (isExpanded) {
+          <svg width="28" height="28" viewBox="0 0 57 57" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0 text-stone-800">
+             <path fill-rule="evenodd" clip-rule="evenodd" d="M32.584 56.5853C33.243 56.5284 33.8009 56.0739 33.9838 55.4383L36.7057 48.5284C37.3608 46.2517 36.6725 47.0008 35.7146 44.8339C35.2184 43.7114 34.7538 42.6515 34.3494 41.7289C33.6343 40.0972 33.1075 38.8951 32.9266 38.5362L22.4292 18.5391C21.6863 16.9868 20.9674 15.6213 20.3347 14.4196C17.593 9.21193 16.4705 7.07992 22.0308 6.14486C23.7996 5.88014 24.6216 5.02537 24.516 3.80283C24.4104 2.58027 23.3429 1.88867 21.6756 2.03265L2.00196 3.73164C-0.776811 3.97161 -0.672784 7.76958 2.37628 8.06613C4.74883 8.30911 8.01864 11.1619 11.9811 19.4414L30.4491 55.2022C30.98 56.1639 31.6949 56.6621 32.584 56.5853Z" fill="currentColor"/>
+             <path d="M53.0171 21.1541C53.9878 20.0295 56.6433 15.9283 56.5699 12.666C56.5699 5.22613 50.2899 -0.162955 42.8798 0.00376412C35.4696 0.170483 29.5847 6.57061 29.7354 13.2698C29.8861 19.9689 36.0154 25.2645 43.4256 25.0978C43.6859 25.092 43.9443 25.0794 44.2006 25.0604C44.1454 25.3115 44.0828 25.572 44.0128 25.8417C43.5915 27.4655 42.0262 31.1988 41.8943 31.5642C41.182 33.1106 43.2635 34.4011 44.3318 33.0754L53.0171 21.1541Z" fill="currentColor"/>
+           </svg>
+        }
+    </div>
 
-    <!-- Bouton toggle -->
     <button
       (click)="toggleSidebar()"
-      class="p-1.5 hover:bg-stone-200 rounded-lg cursor-pointer transition-colors"
+      class="p-2 text-stone-500 hover:bg-stone-200 hover:text-stone-700 rounded-lg cursor-pointer transition-colors"
+      [class.ml-auto]="isExpanded" 
     >
       <svg
-        class="w-5 h-5 text-stone-600 transition-transform duration-300"
+        class="w-5 h-5 transition-transform duration-300"
         [class.rotate-180]="!isExpanded"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
-        />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
       </svg>
     </button>
   </div>
 
-  <!-- Navigation -->
-  <nav class="flex-1 p-2 space-y-1 overflow-y-auto overflow-x-hidden">
-    <!-- Nouvelle conversation -->
-    <a
-      href="#"
-      class="flex items-center gap-3 px-3 py-2.5 text-stone-700 hover:bg-stone-200 rounded-lg transition-colors"
-      [class.justify-center]="!isExpanded"
+  <nav class="flex-1 py-4 flex flex-col gap-1 overflow-y-auto">
+    
+    <a routerLink="sondage"
+       routerLinkActive="bg-stone-200 text-stone-900 font-semibold shadow-sm"
+       [routerLinkActiveOptions]="{exact: true}"
+       class="flex items-center gap-3 px-3 py-2.5 mx-2 text-stone-600 rounded-lg transition-all duration-200 hover:bg-stone-100 hover:text-stone-900 group whitespace-nowrap"
+       [class.justify-center]="!isExpanded"
     >
-      <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 shrink-0 transition-colors group-hover:text-stone-800" [class.text-stone-800]="router.isActive('sondage', true)">
+        <path fill-rule="evenodd" d="M3 2.25a.75.75 0 0 1 .75.75v16.19l2.47-2.47a.75.75 0 1 1 1.06 1.06l-3.75 3.75a.75.75 0 0 1-1.06 0l-3.75-3.75a.75.75 0 1 1 1.06-1.06l2.47 2.47V3a.75.75 0 0 1 .75-.75Zm13.5 9a.75.75 0 0 0-1.5 0v4.5a.75.75 0 0 0 1.5 0v-4.5Zm3.75-3.75a.75.75 0 0 0-1.5 0v8.25a.75.75 0 0 0 1.5 0V7.5Z" clip-rule="evenodd" />
       </svg>
+
       @if (isExpanded) {
-        <span class="whitespace-nowrap">Nouvelle conversation</span>
+        <span class="truncate transition-opacity duration-300">Sondages</span>
       }
     </a>
 
-    <!-- Rechercher -->
-    <a
-      href="#"
-      class="flex items-center gap-3 px-3 py-2.5 text-stone-700 hover:bg-stone-200 rounded-lg transition-colors"
-      [class.justify-center]="!isExpanded"
+    <a routerLink="admin"
+       routerLinkActive="bg-stone-200 text-stone-900 font-semibold shadow-sm"
+       [routerLinkActiveOptions]="{exact: true}"
+       class="flex items-center gap-3 px-3 py-2.5 mx-2 text-stone-600 rounded-lg transition-all duration-200 hover:bg-stone-100 hover:text-stone-900 group whitespace-nowrap"
+       [class.justify-center]="!isExpanded"
     >
-      <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-        />
+       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 shrink-0 transition-colors group-hover:text-stone-800" [class.text-stone-800]="router.isActive('admin', true)">
+        <path fill-rule="evenodd" d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z" clip-rule="evenodd" />
+        <path d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487 6.001 6.001 0 0 1 2.986-3.962 8.154 8.154 0 0 0 .574-.206Z" />
+        <path d="M20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 8.154 8.154 0 0 0 .574.206 6.001 6.001 0 0 1 2.986 3.962.563.563 0 0 1-.373.487l-.115.04c-.567.2-1.156.349-1.764.44Z" />
       </svg>
+
       @if (isExpanded) {
-        <span class="whitespace-nowrap">Rechercher</span>
+        <span class="truncate transition-opacity duration-300">Administrateurs</span>
       }
     </a>
 
-    <!-- Historique -->
-    <a
-      href="#"
-      class="flex items-center gap-3 px-3 py-2.5 text-stone-700 hover:bg-stone-200 rounded-lg transition-colors"
-      [class.justify-center]="!isExpanded"
-    >
-      <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-        />
-      </svg>
-      @if (isExpanded) {
-        <span class="whitespace-nowrap">Historique</span>
-      }
-    </a>
-
-    <!-- Séparateur + Section Vos chats (visible uniquement si expanded) -->
-    @if (isExpanded) {
-      <div class="pt-4 pb-2">
-        <span class="px-3 text-xs font-medium text-stone-500 uppercase">Vos chats</span>
-      </div>
-
-      <!-- Liste des chats récents -->
-      <a
-        href="#"
-        class="flex items-center gap-3 px-3 py-2 text-stone-600 hover:bg-stone-200 rounded-lg transition-colors text-sm"
-      >
-        <span class="truncate">Conversation précédente...</span>
-      </a>
-    }
   </nav>
 
-  <!-- Footer -->
-  <div class="border-t border-stone-200 p-2">
-    <!-- Paramètres -->
+  <div class="border-t border-stone-200 p-2 shrink-0 flex flex-col gap-1">
     <a
       href="#"
-      class="flex items-center gap-3 px-3 py-2.5 text-stone-700 hover:bg-stone-200 rounded-lg transition-colors"
+      class="flex items-center gap-3 px-3 py-2.5 mx-2 text-stone-600 hover:bg-stone-100 hover:text-stone-900 rounded-lg transition-colors whitespace-nowrap"
       [class.justify-center]="!isExpanded"
     >
-      <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-        />
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-        />
+      <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
       @if (isExpanded) {
-        <span class="whitespace-nowrap">Paramètres</span>
+        <span class="truncate transition-opacity duration-300">Paramètres</span>
       }
     </a>
 
-    <!-- User -->
     <div
-      class="flex items-center gap-3 px-3 py-2.5 rounded-lg"
+      class="flex items-center gap-3 px-3 py-2.5 mx-2 rounded-lg transition-colors hover:bg-stone-100 whitespace-nowrap cursor-pointer"
       [class.justify-center]="!isExpanded"
     >
       <div
-        class="w-8 h-8 bg-primary-green-100 rounded-full flex items-center justify-center text-stone-800 font-semibold text-sm shrink-0"
+        class="w-8 h-8 bg-emerald-100 border border-emerald-200 rounded-full flex items-center justify-center text-emerald-800 font-bold text-sm shrink-0"
       >
         U
       </div>
       @if (isExpanded) {
-        <div class="flex-1 min-w-0">
-          <p class="text-sm font-medium text-stone-800 truncate">Utilisateur</p>
+        <div class="flex-1 min-w-0 transition-opacity duration-300">
+          <p class="text-sm font-semibold text-stone-800 truncate">Utilisateur</p>
           <p class="text-xs text-stone-500 truncate">user&#64;example.com</p>
         </div>
       }
