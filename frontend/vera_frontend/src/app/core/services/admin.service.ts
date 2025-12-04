@@ -1,34 +1,38 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { Observable, from, map } from 'rxjs';
+import { environment } from '../../../environment/environment'; // Vérifie le chemin
 import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-  
-  // Simulation basée sur tes colonnes BDD
+  private supabase: SupabaseClient;
+
+  constructor() {
+    // Initialisation du client Supabase avec tes clés
+    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
+  }
+
+  // RÉCUPÉRATION RÉELLE DEPUIS SUPABASE
   getAdmins(): Observable<User[]> {
-    const mockUsers: User[] = [
-      {
-        id: 'uuid-1',
-        nom: 'Stark',
-        prenom: 'Tony',
-        email: 'tony@stark.com',
-        isAdmin: true,
-        actif: true,
-        createdAt: '2023-11-15T09:00:00'
-      },
-      {
-        id: 'uuid-2',
-        nom: 'Rogers',
-        prenom: 'Steve',
-        email: 'cap@america.com',
-        isAdmin: true,
-        actif: false,
-        createdAt: '2024-01-20T14:30:00'
-      }
-    ];
-    return of(mockUsers);
+    // On crée la promesse de requête
+    const promise = this.supabase
+      .from('users')                 // Nom de ta table dans l'image
+      .select('*')                   // On prend toutes les colonnes
+      .eq('isAdmin', true)           // FILTRE: On ne veut que les admins
+      .order('createdAt', { ascending: false }); // Tri par date récente
+
+    // On convertit la Promesse en Observable pour Angular
+    return from(promise).pipe(
+      map((response) => {
+        if (response.error) {
+          throw new Error(response.error.message);
+        }
+        // Supabase retourne 'data', on le renvoie
+        return response.data as User[];
+      })
+    );
   }
 }
