@@ -1,55 +1,45 @@
 // chat-bubble.component.ts
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-/**
- * Type de message dans la conversation
- * - 'user' : Message envoyé par l'utilisateur
- * - 'assistant' : Message reçu du chatbot
- */
 export type MessageRole = 'user' | 'assistant';
 
-/**
- * Interface représentant un message dans la conversation
- * @property id - Identifiant unique du message
- * @property role - Rôle de l'expéditeur (user ou assistant)
- * @property content - Contenu textuel du message
- * @property timestamp - Date et heure d'envoi du message
- * @property isLoading - Indique si le message est en cours de chargement (pour l'assistant)
- */
+// Nouvelle interface pour une source
+export interface SourceLink {
+  url: string;
+  domain: string;
+  title: string;
+}
+
 export interface ChatMessage {
   id: string;
   role: MessageRole;
   content: string;
   timestamp: Date;
   isLoading?: boolean;
+  verdict?: string;
+  confidence?: number;
+  // Ajout du tableau de sources
+  sources?: SourceLink[];
 }
 
-/**
- * Composant d'affichage d'une bulle de chat
- * Affiche différemment les messages utilisateur et assistant
- *
- * @example
- * ```html
- * <app-chat-bubble [message]="message"></app-chat-bubble>
- * ```
- */
 @Component({
   selector: 'app-chat-bubble',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './chat-bubbles.html',
   styles: [],
 })
 export class ChatBubbles {
-  /**
-   * Message à afficher dans la bulle
-   */
   @Input({ required: true }) message!: ChatMessage;
 
-  /**
-   * Formate l'heure du message
-   * @returns Heure formatée (ex: "14:30")
-   */
+  getConfidenceColor(confidence: number | undefined): string {
+    if (!confidence) return 'bg-stone-200';
+    if (confidence > 0.8) return 'bg-primary-green-100';
+    if (confidence > 0.5) return 'bg-yellow-100';
+    return 'bg-red-100';
+  }
+
   getFormattedTime(): string {
     return this.message.timestamp.toLocaleTimeString('fr-FR', {
       hour: '2-digit',

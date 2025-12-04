@@ -27,59 +27,68 @@
       } @else {
         <!-- Information véridique -->
         <h2 class="text-2xl font-serif text-stone-800 mb-3">
-          Information <span class="underline decoration-primary-green-300 decoration-4 underline-offset-4">véridique</span>
+          Information <span class="underline decoration-primary-green-300 decoration-4 underline-offset-4">analysée</span>
         </h2>
         
+        <!-- Verdict -->
+        @if (message.verdict) {
+             <p class="text-stone-800 font-bold mb-2">Verdict : {{ message.verdict }}</p>
+        }
+
         <!-- Confiance -->
         <p class="text-stone-600 text-sm mb-1">
-          Confiance de Vera : <span class="bg-primary-green-100 text-stone-800 px-2 py-0.5 rounded-md font-medium">90%</span>
+          Confiance de Vera : 
+          <span class="px-2 py-0.5 rounded-md font-medium" 
+                [class]="getConfidenceColor(message.confidence)">
+            {{ message.confidence ? (message.confidence * 100 | number:'1.0-0') : 0 }}%
+          </span>
         </p>
         
-        <!-- Sources count -->
         <p class="text-stone-600 text-sm mb-6">
-          Cette information est exact, selon 
-          <span class="bg-primary-green-100 text-stone-800 px-2 py-0.5 rounded-md">2 sources</span> 
-          en 
-          <span class="bg-primary-green-100 text-stone-800 px-2 py-0.5 rounded-md">2025</span>
+          Analyse basée sur l'IA et les bases de données de fact-checking.
         </p>
         
         <!-- Résumé factuel -->
         <h3 class="text-xl font-serif text-stone-800 mb-2">
           Résumé <span class="underline decoration-primary-green-300 decoration-4 underline-offset-4">factuel</span>
         </h3>
-        <p class="text-stone-600 text-sm leading-relaxed mb-6">
+        
+        <p class="text-stone-600 text-sm leading-relaxed mb-6 whitespace-pre-line">
           {{ message.content }}
         </p>
         
-        <!-- Les sources fiables -->
-        <h3 class="text-xl font-serif text-stone-800 mb-3">
-          Les sources <span class="underline decoration-primary-green-300 decoration-4 underline-offset-4">fiables</span>
-        </h3>
-        
-        <!-- Liste des sources -->
-        <div class="space-y-3">
-          <!-- Source 1 -->
-          <a href="#" class="flex items-center gap-3 p-3 bg-white rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
-            <div class="w-12 h-12 bg-stone-200 rounded-lg shrink-0 overflow-hidden">
-              <img src="assets/images/placeholder-source.png" alt="" class="w-full h-full object-cover"/>
-            </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-stone-800 line-clamp-2">« Le Journal d'un prisonnier » : Nicolas Sarkozy, à peine sorti de prison, annonce la...</p>
-              <p class="text-xs text-stone-400 mt-0.5">Le Monde, 2025</p>
-            </div>
-          </a>
+        <!-- Les sources fiables (Condition d'affichage : Seulement s'il y a des sources) -->
+        @if (message.sources && message.sources.length > 0) {
+          <h3 class="text-xl font-serif text-stone-800 mb-3">
+            Sources <span class="underline decoration-primary-green-300 decoration-4 underline-offset-4">recherchées</span>
+          </h3>
           
-          <!-- Source 2 -->
-          <a href="#" class="flex items-center gap-3 p-3 bg-white rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
-            <div class="w-12 h-12 bg-stone-200 rounded-lg shrink-0 overflow-hidden">
-              <img src="assets/images/placeholder-source.png" alt="" class="w-full h-full object-cover"/>
-            </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-stone-800 line-clamp-2">Nicolas Sarkozy conservera-t-il ses avantages d'ancien président en prison ?</p>
-              <p class="text-xs text-stone-400 mt-0.5">20 minutes, 2025</p>
-            </div>
-          </a>
-        </div>
+          <div class="space-y-3">
+            @for (source of message.sources; track source.url) {
+              <a [href]="source.url" target="_blank" class="flex items-center gap-3 p-3 bg-white rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
+                <!-- Carré de l'image (Favicon) -->
+                <div class="w-12 h-12 bg-stone-200 rounded-lg shrink-0 flex items-center justify-center overflow-hidden relative p-2">
+                   <!-- 
+                      ASTUCE : Utilisation du service Google Favicon pour récupérer le logo du site.
+                      &sz=128 permet d'avoir une qualité correcte.
+                   -->
+                   <img [src]="'https://www.google.com/s2/favicons?domain=' + source.domain + '&sz=128'" 
+                        alt="Logo" 
+                        class="w-full h-full object-contain" 
+                        onerror="this.style.display='none'"/>
+                   
+                   <!-- Fallback texte (WEB) qui apparaît derrière si l'image charge mal -->
+                   <span class="text-xs text-stone-500 absolute z-[-1] font-bold">WEB</span>
+                </div>
+                
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-stone-800 line-clamp-2">{{ source.title }}</p>
+                  <p class="text-xs text-stone-400 mt-0.5">{{ source.domain }}</p>
+                </div>
+              </a>
+            }
+          </div>
+        }
       }
     </div>
   </div>
